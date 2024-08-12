@@ -344,6 +344,7 @@ def youtube_channel():
                         "type": "box",
                         "layout": "vertical",
                         "contents": [
+                        {
                             "type": "text",
                             "text": "理財達人秀",
                             "weight": "bold",
