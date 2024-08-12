@@ -22,7 +22,7 @@ def cache_users_stock():
         collect = db[nameList[i]]
         cel = list(collect.find({"tag":'stock'}))
         users.append(cel)
-        return users
+    return users
 # 油價查詢
 def oil_price():
     target_url = 'https://gas.goodlife.tw/'
