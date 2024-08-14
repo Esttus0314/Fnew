@@ -4,7 +4,7 @@ import datetime
 from imgurpython import ImgurClient
 client_id = '64fe46625b944a1'
 client_secret = 'a4af3027c5f554675a91015a3b5cc6920d8fac44'
-album_id = 'fnewstock'
+album_id = '3sWzoue'
 access_token = 'cf2cc94a1742b039631372f209569ab48655cf17'
 refresh_token = '7590522a1ee2e179c737398c0d7e5816ed8a88da'
 
