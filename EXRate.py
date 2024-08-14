@@ -8,7 +8,7 @@ import matplotlib
 import ssl
 import imgur
 from matplotlib.font_manager import FontProperties
-chinese_font = matplotlib.font_manager.FontProperties(fnewstock='msjh.ttf')
+chinese_font = matplotlib.font_manager.FontProperties(fname='msjh.ttf')
 
 ssl._create_default_https_context = ssl._create_unverified_context
 def getCurrencyName(currency):
