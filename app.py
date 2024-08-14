@@ -12,6 +12,9 @@ import Msg_Template
 import mongodb
 import EXRate
 
+import pyimgur
+import yfinance
+
 app = Flask(__name__)
 # 抓使用者設定他關心的股票
 def cache_users_stock():
@@ -306,7 +309,28 @@ def handle_message(event):
         content = mongodb.delete_my_currency(user_name, uid)
         line_bot_api.push_message(uid, TextSendMessage(content))
         return 0
-
+#################### 匯率圖 ###################################
+    if re.match("CT[A-Z]{3}", msg):
+        currency = msg[2:5]
+        if EXRate.getCurrencyName(currency) == "無可支援的外幣":
+            line_bot_api.push_message(uid, TextSendMessage('無可支援的外幣'))
+            return 0
+        line_bot_api.push_message(uid, TextSendMessage('稍等一下, 將會給您匯率走勢圖'))
+        cash_imgurl = EXRate.cash_exrate_sixMonth(currency)
+        if cash_imgurl == "現金匯率無資料可分析":
+            line_bot_api.push_message(uid, TextSendMessage('現金匯率無資料可分析'))
+        else:
+            line_bot_api.push_message(uid, ImageSendMessage(original_content_url=cash_imgurl, preview_image_url=cash_imgurl))
+        
+        spot_imgurl = EXRate.spot_exrate_sixMonth(currency)
+        if spot_imgurl == "即期匯率無資料可分析":
+            line_bot_api.push_message(uid, TextSendMessage('即期匯率無資料可分析'))
+        else:
+            line_bot_api.push_message(uid, ImagemapSendMessage(original_content_url=spot_imgurl, preview_image_url=spot_imgurl))
+        btn_msg = Msg_Template.realtime_currency_other(currency)
+        line_bot_api.push_message(uid, btn_msg)
+        return 0
+    
 @handler.add(FollowEvent)
 def handle_follow(event):
     welcome_msg = '''Hello! 您好，歡迎您成為 Master 財經小幫手 的好友!

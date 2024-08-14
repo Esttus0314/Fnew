@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib
 import ssl
+import imgur
+from matplotlib.font_manager import FontProperties
+chinese_font = matplotlib.font_manager.FontProperties(fnewstock='msjh.ttf')
 
 ssl._create_default_https_context = ssl._create_unverified_context
 def getCurrencyName(currency):
@@ -23,7 +26,7 @@ def getCurrencyName(currency):
         "NZD" : "紐元",
         "THB" : "泰銖",
         "PHP" : "菲國比索",
-        "IDR" : "印尼幣",
+        "IDR" : "印尼盾",
         "KRW" : "韓元",
         "MYR" : "馬來幣",
         "VND" : "越南盾",
@@ -71,3 +74,45 @@ def showCurrency(code): # code 為外幣代碼
     sold_spot = "無資料" if currency[4] == '-' else str(float(currency[4])) 
     content +=  f"{currency_name} 最新掛牌時間為: {now_time}\n ---------- \n 現金買入價格: {buying_cash}\n 現金賣出價格: {sold_cash}\n 即期買入價格: {buying_spot}\n 即期賣出價格: {sold_spot}\n \n"
     return content
+# 現金匯率
+def cash_exrate_sixMonth(code1):
+    currency_name = getCurrencyName(code1)
+    if currency_name == "無可支援的外幣": return "無可支援的外幣"
+    dfs = pd.read_html(f'https://rate.bot.com.tw/xrt/quote/l6m/{code1}')
+    currency = dfs[0].iloc[:, 0:6]
+    #更正欄位名稱
+    currency.columns = [u'Date', u'Currency', u'現金買入', u'現金賣出', u'即期買入', u'即期賣出']
+    currency[u'Currency'] = currency[u'Currency'].str.extract('\((\w+)\)')
+    currency = currency.iloc[::-1]
+    if currency["現金買入"][0] == "-" or currency["現金買入"][0] == 0.0:
+        return "現金匯率無資料可分析"
+    currency.plot(kind='line', figsize=(12,6),x='Date', y=[u'現金買入', u'現金賣出'])
+    plt.legend(prop=chinese_font)
+    plt.title(currency_name+" 現金匯率", fontsize=20, fontproperties=chinese_font)
+    plt.savefig(f"{code1}.png")
+    plt.show()
+    plt.close()
+    return imgur.showImgur(code1)
+
+##-----------------------------------
+######  走勢圖
+#   即期匯率
+
+def spot_exrate_sixMonth(code2):
+    currency_name = getCurrencyName(code2)
+    if currency_name == "無可支援的外幣": return "無可支援的外幣"
+    dfs = pd.read_html(f'https://rate.bot.com.tw/xrt/quote/l6m/{code2}')
+    currency = dfs[0].iloc[:, 0:6]
+    #更正欄位名稱
+    currency.columns = [u'Date', u'Currency', u'現金買入', u'現金賣出', u'即期買入', u'即期賣出']
+    currency[u'Currency'] = currency[u'Currency'].str.extract('\((\w+)\)')
+    currency = currency.iloc[::-1]
+    if currency["即期買入"][0] == "-" or currency["即期買入"][0] == 0.0:
+        return "即期匯率無資料可分析"
+    currency.plot(kind='line', figsize=(12,6),x='Date', y=[u'即期買入', u'即期賣出'])
+    plt.legend(prop=chinese_font)
+    plt.title(f"{currency_name} 即期匯率", fontsize=20, fontproperties=chinese_font)
+    plt.savefig(f"{code2}.png")
+    plt.show()
+    plt.close()
+    return imgur.showImgur(code2)
