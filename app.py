@@ -130,8 +130,8 @@ def handle_message(event):
                                 text='油價查詢'
                             ),
                             URIAction(
-                                label='奇摩股市',
-                                uri='https://tw.stock.yahoo.com/us/?s=NVS&tt=1'
+                                label='HACHI',
+                                uri='https://liff.line.me/2006134066-1VKjrBKL'
                             )
                         ]
                 ),
