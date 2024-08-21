@@ -208,6 +208,9 @@ def handle_message(event):
         content = Msg_Template.youtube_channel()
         line_bot_api.push_message(uid, content)
         return 0
+    if re.match('分析趨勢圖', msg):
+        message = Msg_Template.stock_reply_other()
+        line_bot_api.reply_message(event.reply_token, message)
 ######################股票區########################
     if event.message.text == "股價查詢":
         line_bot_api.push_message(uid,TextSendMessage("請輸入#股票代號....."))
