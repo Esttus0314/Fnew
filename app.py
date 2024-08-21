@@ -38,6 +38,7 @@ def plot_stock_k_chart(IMGUR_CLIENT_ID, stock="0050", date_from='2020-01-01'):
         if df is None or df.empty:
             print(f"未能獲取到股票數據，可能因為股票代碼不正確或數據來源問題。")
             return None
+        
         print("股票數據獲取成功，開始繪製K線圖...")
         mpf.plot(df, type='candle', mav=(5, 20), volume=True, ylabel=stock.upper() + 'Price', savefig='testsave.png')
 
@@ -134,7 +135,7 @@ def handle_message(event):
         stock_name = input_word[2:6]
         start_date = input_word[6:]
         content = plot_stock_k_chart(IMGUR_CLIENT_ID,stock_name,start_date)
-        message = ImagemapSendMessage(original_content_url=content,preview_image_url=content)
+        message = ImageSendMessage(original_content_url=content,preview_image_url=content)
         line_bot_api.reply_message(event.reply_token, message)
 
 #################### 目錄區 ###########################
