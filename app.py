@@ -16,6 +16,7 @@ import pyimgur
 import yfinance
 
 app = Flask(__name__)
+IMGUR_CLIENT_ID = '64fe46625b944a1'
 # 抓使用者設定他關心的股票
 def cache_users_stock():
     db=mongodb.constructor_stock()
@@ -90,6 +91,17 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content)
         )
+
+################## K線圖 ##########################
+    if event.message.text[:2].upper()== "@K":
+        input_word = event.message.text.replace(" ","")
+        stock_name = input_word[2:6]
+        start_date = input_word[6:]
+        content = plot_stock_k_chart(IMGUR_CLIENT_ID,stock_name,start_date)
+        message = ImagemapSendMessage(original_content_url=content,preview_image_url=content)
+        line_bot_api.reply_message(event.reply_token, message)
+
+#################### 目錄區 ###########################
     if event.message.text == '使用說明':
         Usage(event)
     if event.message.text == '開始玩': 
