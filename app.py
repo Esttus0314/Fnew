@@ -108,7 +108,7 @@ def handle_message(event):
                             ),
                             URIAction(
                                 label='國際金融',
-                                uri='https://tw.stock.yahoo.com/markets/'
+                                uri='https://liff.line.me/2006134066-1vd2egdj'
                             ),
                             URIAction(
                                 label='粉絲團',
