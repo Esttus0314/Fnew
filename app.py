@@ -12,9 +12,6 @@ import Msg_Template
 import mongodb
 import EXRate
 
-import pyimgur
-import yfinance
-
 app = Flask(__name__)
 IMGUR_CLIENT_ID = '64fe46625b944a1'
 #K線圖
