@@ -17,6 +17,42 @@ import yfinance
 
 app = Flask(__name__)
 IMGUR_CLIENT_ID = '64fe46625b944a1'
+#K線圖
+import yfinance as yf
+import mplfinance as mpf
+import pyimgur
+
+def plot_stock_k_chart(IMGUR_CLIENT_ID, stock="0050", date_from='2020-01-01'):
+    """
+    進行個股K線圖繪製，回傳至於雲端圖床的連結。將顯示包含5MA、20MA及量價關係，起始預設自2020-01-01起到昨日收盤價。
+    :stock :個股代碼(字串)，預設0050。
+    :date_from :起始日(字串)，格視為YYYY-MM-DD，預設自2020-01-01起。
+    """
+    stock = str(stock) + ".TW"
+    try:
+        #使用yfinance獲取數據
+        print(f"正在獲取股票數據: {stock}")
+        df = yf.download(stock, start=date_from)
+        
+        #檢查數據是否獲取成功
+        if df is None or df.empty:
+            print(f"未能獲取到股票數據，可能因為股票代碼不正確或數據來源問題。")
+            return None
+        print("股票數據獲取成功，開始繪製K線圖...")
+        mpf.plot(df, type='candle', mav=(5, 20), volume=True, ylabel=stock.upper() + 'Price', savefig='testsave.png')
+
+        #上傳圖片到Imgur
+
+        PATH = "testsave.png"
+        im = pyimgur.Imgur(IMGUR_CLIENT_ID)
+        uploaded_image = im.upload_image(PATH, title=stock + "candlestick chart")
+        print(f"上傳圖片成功: {uploaded_image.link}")
+        return uploaded_image.link
+    
+    except Exception as e:
+        print(f"錯誤: {e}")
+        return None
+
 # 抓使用者設定他關心的股票
 def cache_users_stock():
     db=mongodb.constructor_stock()
