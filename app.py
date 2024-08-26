@@ -12,11 +12,14 @@ import Msg_Template
 import mongodb
 import EXRate
 import json, time
+import place
 
 app = Flask(__name__)
 IMGUR_CLIENT_ID = '64fe46625b944a1'
 access_token = '7o16UDg5Pw9rantbAH1yE7aVZG1UQQyTlNpRtR17oUQ5Mcj2/rJyRpqcq106EIHQt38XThD9j+e8idMjyCpmvCUoKXbhgxyDMHT3ZlLPwvkym3GSuPIF8KdviR6JELjCxcklBRXBsdPNfTsjGvHrVQdB04t89/1O/w1cDnyilFU='
 
+#暫存用dict
+mat_d={}
 #K線圖
 import yfinance as yf
 import mplfinance as mpf
@@ -411,6 +414,20 @@ def handle_message(event):
             line_bot_api.push_message(uid, ImagemapSendMessage(original_content_url=spot_imgurl, preview_image_url=spot_imgurl))
         btn_msg = Msg_Template.realtime_currency_other(currency)
         line_bot_api.push_message(uid, btn_msg)
+        return 0
+    ###########################################################################
+    #圖文選單
+    #第一層-最新氣象->4格圖片flex message
+    if re.match('最新氣象|查詢天氣|天氣查詢|weather|Weather',msg):
+        content = place.img_Carousel()
+        line_bot_api.reply_message(event.reply_token,content)
+        return 0
+    #######################1.即時天氣-OK##############################
+    # 1.第二層 及時天氣->呼叫quick_reply
+    if re.match('即時天氣|即時氣象',msg):
+        mat_d[uid]='即時天氣'
+        content=place.quick_reply_weather(mat_d[uid])
+        line_bot_api.reply_message(event.reply_token, content)
         return 0
     
 @handler.add(FollowEvent)

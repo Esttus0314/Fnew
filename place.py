@@ -447,3 +447,26 @@ def img_Carousel():
         }
     )
     return flex_message
+
+##########################################
+def quick_reply_weather(mat):
+    content_text = "請選擇您要查詢的天氣:"
+    text_message = TextSendMessage(
+        text = content_text,
+        quick_reply=QuickReply(
+            items=[
+                QuickReplyButton(
+                    action=MessageAction(
+                        label="查詢其他天氣",
+                        text="其他"+mat,
+                    )
+                ),
+                QuickReplyButton(
+                    action=LocationAction(
+                        label="回傳地址查詢"
+                    )
+                )
+            ]
+        )
+    )
+    return text_message
