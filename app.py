@@ -11,9 +11,12 @@ import twstock
 import Msg_Template
 import mongodb
 import EXRate
+import json, time
 
 app = Flask(__name__)
 IMGUR_CLIENT_ID = '64fe46625b944a1'
+access_token = '7o16UDg5Pw9rantbAH1yE7aVZG1UQQyTlNpRtR17oUQ5Mcj2/rJyRpqcq106EIHQt38XThD9j+e8idMjyCpmvCUoKXbhgxyDMHT3ZlLPwvkym3GSuPIF8KdviR6JELjCxcklBRXBsdPNfTsjGvHrVQdB04t89/1O/w1cDnyilFU='
+
 #K線圖
 import yfinance as yf
 import mplfinance as mpf
@@ -81,7 +84,28 @@ def push_msg(event, msg):
     except:
         room_id = event.source.user_id
         line_bot_api.push_message(room_id, TextSendMessage(text=msg))
+def reply_image(msg, rk, token):
+    headers = {'Authorization':f'Bearer {token}', 'Content-Type':'application/json'}
+    body = {
+    'replyToken':rk,
+    'messages':[{
+            'type': 'image',
+            'originalContentUrl': msg,
+            'previewImageUrl':msg
+        }]
+    }
+    req = requests.request('POST', 'https://api.line.me/v2/bot/message/reply', headers = headers, data=json.dumps(body).encode('utf-8'))
+    print(req.text)
 
+def cache_users_currency():
+    db=mongodb.constructor_currency()
+    nameLsit = db.list_collection_names()
+    users = []
+    for i in range(len(nameLsit)):
+        collect = db[nameLsit(i)]
+        cel = list(collect.find({"tag":'currency'}))
+        users.append(cel)
+    return users
 def Usage(event):
     push_msg(event, '  ***查詢方法***   \
              \n\
@@ -100,10 +124,19 @@ def callback():
 
     try:
         handler.handle(body, signature)
-    except InvalidSignatureError:
-        app.logger.info('Invalid signature. Please check your channel access token/chanel secret.')
-        abort(400)
 
+        json_data = json.loads(body)
+        reply_token = json_data['events'][0]['replyToken']
+        user_id = json_data['events'][0]['userId']
+        print(json_data)
+        if 'message' in json_data['events'][0]:
+            if json_data['events'][0]['type'] == 'text':
+                text = json_data['events'][0]['message']['text']
+                if text == '雷達回波圖' or text == '雷達回波':
+                    reply_image(f'https://cwbopendata.s3.ap-northeast-1.amazonaws.com/MSC/O-A0058-003.png?{time.time_ns()}', reply_token, access_token)
+
+    except:
+        print('error')
     return 'OK'
 
 @handler.add(MessageEvent, message=TextMessage)
