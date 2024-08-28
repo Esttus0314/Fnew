@@ -159,8 +159,8 @@ def callback():
         #         if text == '雷達回波圖' or text == '雷達回波':
         #             reply_image(f'https://cwbopendata.s3.ap-northeast-1.amazonaws.com/MSC/O-A0058-003.png?{time.time_ns()}', reply_token, access_token)
 
-    except:
-        print('error')
+    except InvalidSignatureError:
+        abort(400)
     return 'OK'
 
 @handler.add(MessageEvent, message=TextMessage)
