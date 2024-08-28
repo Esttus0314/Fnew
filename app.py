@@ -16,6 +16,7 @@ import numpy as np
 import place
 from tensorflow.keras.models import load_model
 from PIL import Image
+import io
 
 app = Flask(__name__)
 IMGUR_CLIENT_ID = '64fe46625b944a1'
@@ -464,7 +465,22 @@ def handle_message(event):
         content=place.quick_reply_weather(mat_d[uid])
         line_bot_api.reply_message(event.reply_token, content)
         return 0
-    
+
+@handler.add(MessageEvent, message=ImageMessage) 
+def handle_image_message(event):
+    message_content = line_bot_api.get_message_content(event.message.id)
+    image = Image.open(io.BytesIO(message_content.content))
+
+    image = preprocess_image(image)
+
+    prediction = model.predict(image)
+    digit = np.argmax(prediction)
+
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=f'預測的數字是: {digit}')
+    )
+
 @handler.add(FollowEvent)
 def handle_follow(event):
     welcome_msg = '''Hello! 您好，歡迎您成為 Master 財經小幫手 的好友!
