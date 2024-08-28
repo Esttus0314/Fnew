@@ -446,11 +446,8 @@ def handle_message(event):
         )
     ############################## weather quake #####################################
     if re.match('雷達回波',msg):
-        url = 'https:www.cwa.gov.tw/Data/radar/CV1_3600.png'
-        radar_img = ImageSendMessage(
-            original_content_url=url,
-            preview_image_url=url
-        )
+        url = 'https://www.cwa.gov.tw/Data/radar/CV1_3600.png'
+        radar_img = ImageSendMessage(original_content_url=url,preview_image_url=url)
         line_bot_api.reply_message(event.reply_token, radar_img)
     #圖文選單
     #第一層-最新氣象->4格圖片flex message
