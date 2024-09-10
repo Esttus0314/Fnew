@@ -12,11 +12,7 @@ import Msg_Template
 import mongodb
 import EXRate
 import json, time
-import numpy as np
 import place
-from tensorflow.keras.models import load_model
-from PIL import Image
-import io
 
 app = Flask(__name__)
 IMGUR_CLIENT_ID = '64fe46625b944a1'
@@ -24,24 +20,6 @@ access_token = '7o16UDg5Pw9rantbAH1yE7aVZG1UQQyTlNpRtR17oUQ5Mcj2/rJyRpqcq106EIHQ
 
 #暫存用dict
 mat_d={}
-######### CNN #################
-# 加載已訓練的CNN模型
-model = load_model('mnist_cnn_model.h5')
-
-# 初始化 Line Bot API
-line_bot_api = LineBotApi('7o16UDg5Pw9rantbAH1yE7aVZG1UQQyTlNpRtR17oUQ5Mcj2/rJyRpqcq106EIHQt38XThD9j+e8idMjyCpmvCUoKXbhgxyDMHT3ZlLPwvkym3GSuPIF8KdviR6JELjCxcklBRXBsdPNfTsjGvHrVQdB04t89/1O/w1cDnyilFU=')
-
-def preprocess_image(image):
-    """
-    欲處理上船的圖像，使其符合CNN模型的輸入要求。
-    """
-    image = image.convert('L')
-    image = image.resize((28,28))
-    image = np.array(image)
-    image = image / 255.0
-    image = np.expand_dims(image, axis=0)
-    image = np.expand_dims(image, axis=-1)
-    return image
 #K線圖
 import yfinance as yf
 import mplfinance as mpf
@@ -134,7 +112,9 @@ def cache_users_currency():
 def Usage(event):
     push_msg(event, '  ***查詢方法***   \
              \n\
-             \n本機器人可查詢油價及匯率\
+             \n 本機器人可查詢油價、匯率、股票、氣象\
+             \n\
+             \n 點擊下方"點我"，方便快速查詢\
              \n\
              \n 油價通知 ~~~ 輸入油價查詢\
              \n 匯率通知 ~~~ 輸入匯率查詢\
@@ -145,22 +125,23 @@ def callback():
     signature = request.headers['X-Line-Signature']
 
     body = request.get_data(as_text=True)
-    app.logger.info("Request body: " + body)
+    app.logger.info('Request body: ' + body)
 
     try:
         handler.handle(body, signature)
-        # json_data = json.loads(body)
-        # reply_token = json_data['events'][0]['replyToken']
-        # user_id = json_data['events'][0]['source']['userId']
-        # print(json_data)
-        # if 'message' in json_data['events'][0]:
-        #     if json_data['events'][0]['message']['type'] == 'text':
-        #         text = json_data['events'][0]['message']['text']
-        #         if text == '雷達回波圖' or text == '雷達回波':
-        #             reply_image(f'https://cwbopendata.s3.ap-northeast-1.amazonaws.com/MSC/O-A0058-003.png?{time.time_ns()}', reply_token, access_token)
 
-    except InvalidSignatureError:
-        abort(400)
+        json_data = json.loads(body)
+        reply_token = json_data['events'][0]['replyToken']
+        user_id = json_data['events'][0]['source']['userId']
+        print(json_data)
+        if 'message' in json_data['events'][0]:
+            if json_data['events'][0]['message']['type'] == 'text':
+                text = json_data['events'][0]['message']['text']
+                if text == '雷達回波圖' or text == '雷達回波':
+                    reply_image(f'https://cwbopendata.s3.ap-northeast-1.amazonaws.com/MSC/O-A0058-003.png?{time.time_ns()}', reply_token, access_token)
+
+    except:
+        print('error')
     return 'OK'
 
 @handler.add(MessageEvent, message=TextMessage)
@@ -195,65 +176,46 @@ def handle_message(event):
 #################### 目錄區 ###########################
     if event.message.text == '使用說明':
         Usage(event)
-    if event.message.text == '開始玩': 
+    if event.message.text == '其他功能': 
         message = TemplateSendMessage(
         alt_text='目錄 template',
         template=CarouselTemplate(
             columns=[
-                CarouselColumn(
-                        thumbnail_image_url='https://i.imgur.com/bGyGdb1.jpg',
-                        title='選擇服務',
-                        text='請選擇',
-                        actions=[
-                            MessageAction(
-                                label='開始玩',
-                                text='開始玩',
-                            ),
-                            URIAction(
-                                label='國際金融',
-                                uri='https://liff.line.me/2006134066-1vd2egdj'
-                            ),
-                            URIAction(
-                                label='粉絲團',
-                                uri='https://zh-tw.facebook.com/lccnet10/'
-                            )
-                        ]
-                ),
-                CarouselColumn(
-                        thumbnail_image_url='https://i.imgur.com/N9TKsay.jpg',
-                        title='選擇服務',
-                        text='請選擇',
-                        actions=[
-                            MessageAction(
-                                label='other bot',
-                                text='imgur bot',
-                            ),
-                            MessageAction(
-                                label='油價查詢',
-                                text='油價查詢'
-                            ),
-                            URIAction(
-                                label='HACHI',
-                                uri='https://liff.line.me/2006134066-1VKjrBKL'
-                            )
-                        ]
-                ),
                 CarouselColumn(
                         thumbnail_image_url='https://i.imgur.com/rwR2yUr.jpg',
                         title='選擇服務',
                         text='請選擇',
                         actions=[
                             URIAction(
-                                label='匯率分享',
-                                uri='https://rate.bot.com.tw/xrt?Lang=zh-Tw'
+                                label='yahoo股市',
+                                uri='https://tw.stock.yahoo.com/'
                             ),
                             URIAction(
-                                label='財經PTT',
-                                uri='https://www.ptt.cc/bbs/Finance/index.html'
+                                label='國際金融',
+                                uri='https://liff.line.me/2006134066-1vd2egdj'
                             ),
                             URIAction(
-                                label='youtube 程式教學分享頻道',
-                                uri='https://www.youtube.com/channel/UCPhn2rCqhu0HdktsFjixahA'
+                                label='聯成粉絲團',
+                                uri='https://zh-tw.facebook.com/lccnet10/'
+                            )
+                        ]
+                ),
+                CarouselColumn(
+                        thumbnail_image_url='https://i.imgur.com/N9TKsay.jpg',
+                        title='來點音樂',
+                        text='請選擇',
+                        actions=[
+                            MessageAction(
+                                label='作業向',
+                                uri='https://liff.line.me/2006134066-EG91GB93',
+                            ),
+                            MessageAction(
+                                label='2024抖音',
+                                uri='https://liff.line.me/2006134066-1X075P0L'
+                            ),
+                            URIAction(
+                                label='HACHI',
+                                uri='https://liff.line.me/2006134066-1VKjrBKL'
                             )
                         ]
                     )
@@ -436,19 +398,7 @@ def handle_message(event):
         btn_msg = Msg_Template.realtime_currency_other(currency)
         line_bot_api.push_message(uid, btn_msg)
         return 0
-    ############################## CNN ######################################
-    msg = event.message.text
-
-    if re.match('圖像辨識',msg):
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text='請上傳一張圖片進行圖像辨識。')
-        )
-    ############################## weather quake #####################################
-    if re.match('雷達回波',msg):
-        url = 'https://www.cwa.gov.tw/Data/radar/CV1_3600.png'
-        radar_img = ImageSendMessage(original_content_url=url,preview_image_url=url)
-        line_bot_api.reply_message(event.reply_token, radar_img)
+    ###########################################################################
     #圖文選單
     #第一層-最新氣象->4格圖片flex message
     if re.match('最新氣象|查詢天氣|天氣查詢|weather|Weather',msg):
@@ -462,22 +412,7 @@ def handle_message(event):
         content=place.quick_reply_weather(mat_d[uid])
         line_bot_api.reply_message(event.reply_token, content)
         return 0
-
-@handler.add(MessageEvent, message=ImageMessage) 
-def handle_image_message(event):
-    message_content = line_bot_api.get_message_content(event.message.id)
-    image = Image.open(io.BytesIO(message_content.content))
-
-    image = preprocess_image(image)
-
-    prediction = model.predict(image)
-    digit = np.argmax(prediction)
-
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=f'預測的數字是: {digit}')
-    )
-
+    
 @handler.add(FollowEvent)
 def handle_follow(event):
     welcome_msg = '''Hello! 您好，歡迎您成為 Master 財經小幫手 的好友!
