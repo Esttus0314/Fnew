@@ -201,7 +201,7 @@ def handle_message(event):
                         ]
                 ),
                 CarouselColumn(
-                        thumbnail_image_url='https://i.imgur.com/N9TKsay.jpg',
+                        thumbnail_image_url='https://i.imgur.com/qMHd6TK.jpeg',
                         title='來點音樂',
                         text='請選擇',
                         actions=[
