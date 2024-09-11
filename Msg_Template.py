@@ -69,6 +69,30 @@ def stock_reply_other():
                                                     text="輸入範例:@K23302024-01-01",
                                                 )
                                        ),
+                                       QuickReplyButton(
+                                                action=MessageAction(
+                                                    label="⭐新增股票目標", 
+                                                    text="輸入範例:關注2330>1000",
+                                                )
+                                       ),
+                                       QuickReplyButton(
+                                                action=MessageAction(
+                                                    label="⭐查詢目標清單", 
+                                                    text="股票清單",
+                                                )
+                                       ),
+                                       QuickReplyButton(
+                                                action=MessageAction(
+                                                    label="⭐刪除目標股票", 
+                                                    text="輸入範例:刪除2330",
+                                                )
+                                       ),
+                                       QuickReplyButton(
+                                                action=MessageAction(
+                                                    label="⭐清空目標股票", 
+                                                    text="清空股票",
+                                                )
+                                       ),
                                     ]
                                 ))
     return text_message
