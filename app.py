@@ -338,14 +338,14 @@ def handle_message(event):
         btn_msg = Msg_Template.stock_reply_rate()
         line_bot_api.push_message(uid, btn_msg)
         return 0
-    if re.match('[A-Z]{3}',msg):
-        currency_name = EXRate.getCurrencyName(msg)
-        if currency_name == '無可支援的外幣': content = "無可支援的外幣"
-        else:
-            line_bot_api.push_message(uid, TextSendMessage("正在為您做外幣換算......"))
-            content = EXRate.showCurrency(msg)
-        line_bot_api.push_message(uid, TextSendMessage(content))
-        return 0
+    # if re.match('[A-Z]{3}',msg):
+    #     currency_name = EXRate.getCurrencyName(msg)
+    #     if currency_name == '無可支援的外幣': content = "無可支援的外幣"
+    #     else:
+    #         line_bot_api.push_message(uid, TextSendMessage("正在為您做外幣換算......"))
+    #         content = EXRate.showCurrency(msg)
+    #     line_bot_api.push_message(uid, TextSendMessage(content))
+    #     return 0
     if re.match('換匯[A-Z]{3}/[A-Z]{3}/[0-9]',msg):
         line_bot_api.push_message(uid, TextSendMessage("將為您做外匯計算....."))
         content = EXRate.getExchangeRate(msg)

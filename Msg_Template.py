@@ -19,6 +19,12 @@ def stock_reply_rate():
                                        ),
                                        QuickReplyButton(
                                                 action=MessageAction(
+                                                    label="⭐匯率圖", 
+                                                    text="輸入範例:CTUSD",
+                                                )
+                                       ),
+                                       QuickReplyButton(
+                                                action=MessageAction(
                                                     label="⭐關注的匯率", 
                                                     text="我的外幣",
                                                 )
@@ -678,4 +684,3 @@ def realtime_currency_other(currency):
                                 ]
                             ))
     return text_message
-
