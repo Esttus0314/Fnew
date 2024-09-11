@@ -59,12 +59,6 @@ def stock_reply_other():
                                        ),
                                        QuickReplyButton(
                                                 action=MessageAction(
-                                                    label="⭐匯率圖", 
-                                                    text="輸入範例:CTUSD",
-                                                )
-                                       ),
-                                       QuickReplyButton(
-                                                action=MessageAction(
                                                     label="⭐股價K線圖", 
                                                     text="輸入範例:@K23302024-01-01",
                                                 )
