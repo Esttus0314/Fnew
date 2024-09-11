@@ -93,6 +93,18 @@ def stock_reply_other():
                                                     text="清空股票",
                                                 )
                                        ),
+                                       QuickReplyButton(
+                                                action=MessageAction(
+                                                    label="⭐股票目標提醒", 
+                                                    text="股價提醒",
+                                                )
+                                       ),
+                                       QuickReplyButton(
+                                                action=MessageAction(
+                                                    label="⭐關閉提醒", 
+                                                    text="關閉提醒",
+                                                )
+                                       ),
                                     ]
                                 ))
     return text_message
