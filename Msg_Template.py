@@ -23,32 +23,50 @@ def stock_reply_rate():
                                                     text="我的外幣",
                                                 )
                                        ),
+                                       QuickReplyButton(
+                                                action=MessageAction(
+                                                    label="⭐新增外幣", 
+                                                    text="新增外幣",
+                                                )
+                                       ),
+                                       QuickReplyButton(
+                                                action=MessageAction(
+                                                    label="⭐刪除外幣", 
+                                                    text="輸入範例:刪除外幣USD",
+                                                )
+                                       ),
+                                       QuickReplyButton(
+                                                action=MessageAction(
+                                                    label="⭐清空外幣", 
+                                                    text="清空外幣",
+                                                )
+                                       ),
                                     ]
                                 ))
     return text_message
 
 def stock_reply_other():
-    content_text = "分析趨勢圖"
+    content_text = "股票那檔事"
     text_message = TextSendMessage(
                                 text = content_text ,
                                quick_reply=QuickReply(
                                    items=[
                                        QuickReplyButton(
                                                 action=MessageAction(
-                                                    label="💜即時股價💜", 
-                                                    text="股價查詢->#2330",
+                                                    label="⭐即時股價", 
+                                                    text="輸入範例:#2330",
                                                 )
                                        ),
                                        QuickReplyButton(
                                                 action=MessageAction(
-                                                    label="💜匯率圖💜", 
-                                                    text="CT幣別->CTUSD",
+                                                    label="⭐匯率圖", 
+                                                    text="輸入範例:CTUSD",
                                                 )
                                        ),
                                        QuickReplyButton(
                                                 action=MessageAction(
-                                                    label="💜股價K線圖💜", 
-                                                    text="@K股票代號日期區間->@K23302024-01-01",
+                                                    label="⭐股價K線圖", 
+                                                    text="輸入範例:@K23302024-01-01",
                                                 )
                                        ),
                                     ]
