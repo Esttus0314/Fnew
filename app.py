@@ -110,15 +110,18 @@ def cache_users_currency():
         users.append(cel)
     return users
 def Usage(event):
-    push_msg(event, '  ***查詢方法***   \
+    push_msg(event, '  ***使用說明***   \
              \n\
              \n 本機器人可查詢油價、匯率、股票、氣象\
              \n\
              \n 點擊下方"點我"，方便快速查詢\
              \n\
-             \n 油價通知 ~~~ 輸入油價查詢\
-             \n 匯率通知 ~~~ 輸入匯率查詢\
-             \n 匯率兌換 ~~~ 換匯USD/TWD')
+             \n ⭐最新氣象 \
+             \n ⭐油價查詢 \
+             \n ⭐匯率大小事 \
+             \n ⭐股價查詢 \
+             \n\
+             \n  有任何問題可以聯繫:ronywu0214@gmail.com')
 
 @app.route('/callback', methods=['POST'])
 def callback():

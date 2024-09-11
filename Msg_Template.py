@@ -7,19 +7,19 @@ def stock_reply_rate():
                                    items=[
                                        QuickReplyButton(
                                                 action=MessageAction(
-                                                    label="💜💜查詢單一幣別匯率", 
+                                                    label="⭐查詢單一幣別匯率", 
                                                     text="匯率查詢",
                                                 )
                                        ),
                                        QuickReplyButton(
                                                 action=MessageAction(
-                                                    label="💜💜查詢幣別匯率", 
-                                                    text="匯率兌換",
+                                                    label="⭐查詢幣別匯率", 
+                                                    text="輸入範例:換匯USD/TWD/100",
                                                 )
                                        ),
                                        QuickReplyButton(
                                                 action=MessageAction(
-                                                    label="💜💜關注的匯率", 
+                                                    label="⭐關注的匯率", 
                                                     text="我的外幣",
                                                 )
                                        ),
