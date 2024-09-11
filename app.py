@@ -392,7 +392,7 @@ def handle_message(event):
             line_bot_api.push_message(uid, TextSendMessage('即期匯率無資料可分析'))
         else:
             line_bot_api.push_message(uid, ImageSendMessage(original_content_url=spot_imgurl, preview_image_url=spot_imgurl))
-        btn_msg = Msg_Template.realtime_currency_other(currency)
+        #btn_msg = Msg_Template.realtime_currency_other(currency)
         line_bot_api.push_message(uid, btn_msg)
         return 0
     if re.match('雷達回波',msg):
