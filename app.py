@@ -205,7 +205,7 @@ def handle_message(event):
                         ]
                 ),
                 CarouselColumn(
-                        thumbnail_image_url='https://imgur.com/VqOzXUo',
+                        thumbnail_image_url='https://i.imgur.com/VqOzXUo.jpeg',
                         title='選擇服務',
                         text='請選擇',
                         actions=[
@@ -222,7 +222,7 @@ def handle_message(event):
                                 uri='https://zh-tw.facebook.com/lccnet10/'
                             )
                         ]
-                ),
+                    )
                 ]
             )
         )
