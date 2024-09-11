@@ -25,19 +25,19 @@ def stock_reply_rate():
                                        ),
                                        QuickReplyButton(
                                                 action=MessageAction(
-                                                    label="⭐新增外幣", 
-                                                    text="新增外幣",
+                                                    label="✨新增外幣", 
+                                                    text="輸入範例:新增外幣USD",
                                                 )
                                        ),
                                        QuickReplyButton(
                                                 action=MessageAction(
-                                                    label="⭐刪除外幣", 
+                                                    label="✨刪除外幣", 
                                                     text="輸入範例:刪除外幣USD",
                                                 )
                                        ),
                                        QuickReplyButton(
                                                 action=MessageAction(
-                                                    label="⭐清空外幣", 
+                                                    label="✨清空外幣", 
                                                     text="清空外幣",
                                                 )
                                        ),
@@ -71,37 +71,37 @@ def stock_reply_other():
                                        ),
                                        QuickReplyButton(
                                                 action=MessageAction(
-                                                    label="⭐新增股票目標", 
+                                                    label="✨新增股票目標", 
                                                     text="輸入範例:關注2330>1000",
                                                 )
                                        ),
                                        QuickReplyButton(
                                                 action=MessageAction(
-                                                    label="⭐查詢目標清單", 
+                                                    label="✨查詢目標清單", 
                                                     text="股票清單",
                                                 )
                                        ),
                                        QuickReplyButton(
                                                 action=MessageAction(
-                                                    label="⭐刪除目標股票", 
+                                                    label="✨刪除目標股票", 
                                                     text="輸入範例:刪除2330",
                                                 )
                                        ),
                                        QuickReplyButton(
                                                 action=MessageAction(
-                                                    label="⭐清空目標股票", 
+                                                    label="✨清空目標股票", 
                                                     text="清空股票",
                                                 )
                                        ),
                                        QuickReplyButton(
                                                 action=MessageAction(
-                                                    label="⭐股票目標提醒", 
+                                                    label="🤩股票目標提醒", 
                                                     text="股價提醒",
                                                 )
                                        ),
                                        QuickReplyButton(
                                                 action=MessageAction(
-                                                    label="⭐關閉提醒", 
+                                                    label="☪️關閉提醒", 
                                                     text="關閉提醒",
                                                 )
                                        ),
