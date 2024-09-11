@@ -375,7 +375,7 @@ def handle_message(event):
         line_bot_api.push_message(uid, TextSendMessage(content))
         return 0
 #################### 匯率圖 ###################################
-    if re.match("ct[A-Z]{3}", msg):
+    if re.match("CT[A-Z]{3}", msg):
         currency = msg[2:5]
         if EXRate.getCurrencyName(currency) == "無可支援的外幣":
             line_bot_api.push_message(uid, TextSendMessage('無可支援的外幣'))
