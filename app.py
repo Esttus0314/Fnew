@@ -116,10 +116,10 @@ def Usage(event):
              \n\
              \n 點擊下方"點我"，方便快速查詢\
              \n\
-             \n ⭐最新氣象 \
-             \n ⭐油價查詢 \
-             \n ⭐匯率大小事 \
-             \n ⭐股價查詢 \
+             \n ⭐最新氣象 >>>> 雷達回波&氣象網站\
+             \n ⭐油價查詢 >>>> 最新油價&預計調整\
+             \n ⭐匯率大小事 >> 匯率查詢&匯率兌換 \
+             \n ⭐股價查詢 >>>> 即時股價&股票關注\
              \n\
              \n  有任何問題可以聯繫:ronywu0214@gmail.com')
 
@@ -191,7 +191,7 @@ def handle_message(event):
                         actions=[
                             URIAction(
                                 label='yahoo股市',
-                                uri='https://tw.stock.yahoo.com/'
+                                uri='https://liff.line.me/2006134066-epqYprqO'
                             ),
                             URIAction(
                                 label='國際金融',
@@ -203,25 +203,25 @@ def handle_message(event):
                             )
                         ]
                 ),
-                CarouselColumn(
-                        thumbnail_image_url='https://i.imgur.com/qMHd6TK.jpeg',
-                        title='來點音樂',
-                        text='請選擇',
-                        actions=[
-                            MessageAction(
-                                label='作業向',
-                                uri='https://liff.line.me/2006134066-EG91GB93',
-                            ),
-                            MessageAction(
-                                label='2024抖音',
-                                uri='https://liff.line.me/2006134066-1X075P0L'
-                            ),
-                            URIAction(
-                                label='HACHI',
-                                uri='https://liff.line.me/2006134066-1VKjrBKL'
-                            )
-                        ]
-                    )
+                # CarouselColumn(
+                #         thumbnail_image_url='https://imgur.com/VqOzXUo',
+                #         title='來點音樂',
+                #         text='請選擇',
+                #         actions=[
+                #             MessageAction(
+                #                 label='作業向',
+                #                 uri='https://liff.line.me/2006134066-EG91GB93',
+                #             ),
+                #             MessageAction(
+                #                 label='2024抖音',
+                #                 uri='https://liff.line.me/2006134066-1X075P0L'
+                #             ),
+                #             URIAction(
+                #                 label='HACHI',
+                #                 uri='https://liff.line.me/2006134066-1VKjrBKL'
+                #             )
+                #         ]
+                #     )
                 ]
             )
         )
