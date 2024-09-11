@@ -205,7 +205,7 @@ def handle_message(event):
                         ]
                 ),
                 CarouselColumn(
-                        thumbnail_image_url='https://i.imgur.com/rwR2yUr.jpg',
+                        thumbnail_image_url='https://imgur.com/VqOzXUo',
                         title='選擇服務',
                         text='請選擇',
                         actions=[
@@ -336,7 +336,7 @@ def handle_message(event):
         schedule.every(5).seconds.do(job).tag('daily-tasks-stock'+uid, 'second')
         while True:
             schedule.run_pending()
-            time.sleep(1)
+            time.sleep(10)
 ######################## 匯率區 ############################
     if re.match('匯率查詢',msg):
         message = Msg_Template.show_Button()
