@@ -203,25 +203,25 @@ def handle_message(event):
                             )
                         ]
                 ),
-                # CarouselColumn(
-                #         thumbnail_image_url='https://imgur.com/VqOzXUo',
-                #         title='來點音樂',
-                #         text='請選擇',
-                #         actions=[
-                #             MessageAction(
-                #                 label='作業向',
-                #                 uri='https://liff.line.me/2006134066-EG91GB93',
-                #             ),
-                #             MessageAction(
-                #                 label='2024抖音',
-                #                 uri='https://liff.line.me/2006134066-1X075P0L'
-                #             ),
-                #             URIAction(
-                #                 label='HACHI',
-                #                 uri='https://liff.line.me/2006134066-1VKjrBKL'
-                #             )
-                #         ]
-                #     )
+                CarouselColumn(
+                        thumbnail_image_url='https://imgur.com/VqOzXUo',
+                        title='來點音樂',
+                        text='請選擇',
+                        actions=[
+                            MessageAction(
+                                label='作業向',
+                                uri='https://liff.line.me/2006134066-EG91GB93',
+                            ),
+                            MessageAction(
+                                label='2024抖音',
+                                uri='https://liff.line.me/2006134066-1X075P0L'
+                            ),
+                            URIAction(
+                                label='HACHI',
+                                uri='https://liff.line.me/2006134066-1VKjrBKL'
+                            )
+                        ]
+                    )
                 ]
             )
         )
