@@ -121,6 +121,8 @@ def Usage(event):
              \n⭐匯率大小事 >> 匯率查詢&匯率兌換 \
              \n⭐股價查詢 >>>> 即時股價&股票關注\
              \n\
+             \n\
+             \n\
              \n 有任何問題可以聯繫:\
              \n ronywu0214@gmail.com')
 
@@ -378,7 +380,7 @@ def handle_message(event):
         line_bot_api.push_message(uid, TextSendMessage(content))
         return 0
     if re.match('清空外幣', msg):
-        content = mongodb.delete_my_currency(user_name, uid)
+        content = mongodb.delete_my_allcurrency(user_name, uid)
         line_bot_api.push_message(uid, TextSendMessage(content))
         return 0
 #################### 匯率圖 ###################################
