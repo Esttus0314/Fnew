@@ -206,20 +206,20 @@ def handle_message(event):
                 ),
                 CarouselColumn(
                         thumbnail_image_url='https://i.imgur.com/VqOzXUo.jpeg',
-                        title='選擇服務',
+                        title='來點音樂',
                         text='請選擇',
                         actions=[
                             URIAction(
-                                label='yahoo股市',
-                                uri='https://liff.line.me/2006134066-epqYprqO'
+                                label='2024抖音',
+                                uri='https://liff.line.me/2006134066-1X075P0L'
                             ),
                             URIAction(
-                                label='國際金融',
-                                uri='https://liff.line.me/2006134066-1vd2egdj'
+                                label='Relexingmusic',
+                                uri='https://liff.line.me/2006134066-EG91GB93'
                             ),
                             URIAction(
-                                label='聯成粉絲團',
-                                uri='https://zh-tw.facebook.com/lccnet10/'
+                                label='HACHI',
+                                uri='https://liff.line.me/2006134066-1VKjrBKL'
                             )
                         ]
                     )
