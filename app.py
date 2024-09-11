@@ -121,7 +121,8 @@ def Usage(event):
              \n⭐匯率大小事 >> 匯率查詢&匯率兌換 \
              \n⭐股價查詢 >>>> 即時股價&股票關注\
              \n\
-             \n  有任何問題可以聯繫:ronywu0214@gmail.com')
+             \n 有任何問題可以聯繫:\
+             \n ronywu0214@gmail.com')
 
 @app.route('/callback', methods=['POST'])
 def callback():
@@ -230,7 +231,7 @@ def handle_message(event):
         content = Msg_Template.youtube_channel()
         line_bot_api.push_message(uid, content)
         return 0
-    if re.match('分析趨勢圖', msg):
+    if re.match('股票那檔事', msg):
         message = Msg_Template.stock_reply_other()
         line_bot_api.reply_message(event.reply_token, message)
 ######################股票區########################
