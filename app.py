@@ -137,16 +137,6 @@ def callback():
     try:
         handler.handle(body, signature)
 
-        json_data = json.loads(body)
-        reply_token = json_data['events'][0]['replyToken']
-        user_id = json_data['events'][0]['source']['userId']
-        print(json_data)
-        if 'message' in json_data['events'][0]:
-            if json_data['events'][0]['message']['type'] == 'text':
-                text = json_data['events'][0]['message']['text']
-                if text == '雷達回波圖' or text == '雷達回波':
-                    reply_image(f'https://cwbopendata.s3.ap-northeast-1.amazonaws.com/MSC/O-A0058-003.png?{time.time_ns()}', reply_token, access_token)
-
     except:
         print('error')
     return 'OK'
@@ -405,6 +395,10 @@ def handle_message(event):
         btn_msg = Msg_Template.realtime_currency_other(currency)
         line_bot_api.push_message(uid, btn_msg)
         return 0
+    if re.match('雷達回波',msg):
+        url = 'https://www.cwa.gov.tw/Data/radar/CV1_3600.png'
+        radar_img = ImageSendMessage(original_content_url=url,preview_image_url=url)
+        line_bot_api.reply_message(event.reply_token, radar_img)
     ###########################################################################
     #圖文選單
     #第一層-最新氣象->4格圖片flex message
