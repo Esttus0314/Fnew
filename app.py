@@ -205,24 +205,24 @@ def handle_message(event):
                         ]
                 ),
                 CarouselColumn(
-                        thumbnail_image_url='https://imgur.com/VqOzXUo',
-                        title='來點音樂',
+                        thumbnail_image_url='https://i.imgur.com/rwR2yUr.jpg',
+                        title='選擇服務',
                         text='請選擇',
                         actions=[
-                            MessageAction(
-                                label='作業向',
-                                uri='https://liff.line.me/2006134066-EG91GB93',
-                            ),
-                            MessageAction(
-                                label='2024抖音',
-                                uri='https://liff.line.me/2006134066-1X075P0L'
+                            URIAction(
+                                label='yahoo股市',
+                                uri='https://liff.line.me/2006134066-epqYprqO'
                             ),
                             URIAction(
-                                label='HACHI',
-                                uri='https://liff.line.me/2006134066-1VKjrBKL'
+                                label='國際金融',
+                                uri='https://liff.line.me/2006134066-1vd2egdj'
+                            ),
+                            URIAction(
+                                label='聯成粉絲團',
+                                uri='https://zh-tw.facebook.com/lccnet10/'
                             )
                         ]
-                    )
+                ),
                 ]
             )
         )
