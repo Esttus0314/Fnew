@@ -179,7 +179,7 @@ def handle_message(event):
 #################### 目錄區 ###########################
     if event.message.text == '使用說明':
         Usage(event)
-    if event.message.text == '其他功能': 
+    if event.message.text == '召喚選單': 
         message = TemplateSendMessage(
         alt_text='目錄 template',
         template=CarouselTemplate(
